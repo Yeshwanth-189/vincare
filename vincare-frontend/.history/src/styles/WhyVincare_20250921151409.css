@@ -1,0 +1,220 @@
+/* ===== Section frame ===== */
+.why {
+  position: relative;
+  gap: clamp(16px, 2vw, 24px);
+  padding-top: clamp(16px, 2vw, 24px);
+  padding-bottom: clamp(24px, 3vw, 36px);
+}
+.why__title {
+  grid-column: 2 / 12;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp(2rem, 3.2vw, 2.5rem);
+  margin-bottom: clamp(10px, 2vw, 16px);
+}
+.why__rows {
+  grid-column: 2 / 12;
+  position: relative;
+}
+.why__rows::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    180deg,
+    rgba(247, 181, 0, 0.25),
+    rgba(247, 181, 0, 0)
+  );
+  pointer-events: none;
+}
+
+/* ===== Row grid (same for EVERY row) =====
+   5 left cols | 72px center | 5 right cols */
+.why__row {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) 72px repeat(
+      5,
+      minmax(0, 1fr)
+    );
+  gap: 16px;
+  align-items: stretch; /* equal heights */
+  margin-block: clamp(10px, 1.4vw, 16px);
+  position: relative;
+}
+
+/* Keep all three direct children on the SAME grid row (prevents image dropping) */
+.why__row > .why__cardWrap,
+.why__row > .why__imgCol,
+.why__row > .why__badgeCol {
+  grid-row: 1;
+}
+
+/* Center badge sits in the middle track and never pushes content */
+.why__badgeCol {
+  grid-column: 6 / 7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 3;
+}
+.why__badge {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(ellipse at 30% 30%, #ffd36b, #f7b500);
+  box-shadow: 0 0 0 3px rgba(247, 181, 0, 0.22),
+    0 0 20px rgba(247, 181, 0, 0.65), 0 0 40px rgba(247, 181, 0, 0.45);
+  animation: goldPulse 2.4s ease-in-out infinite;
+}
+.why__badge span {
+  font-weight: 800;
+  color: #111;
+  font-size: 1.15rem;
+}
+@keyframes goldPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 3px rgba(247, 181, 0, 0.22),
+      0 0 16px rgba(247, 181, 0, 0.55), 0 0 32px rgba(247, 181, 0, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 0 3px rgba(247, 181, 0, 0.28),
+      0 0 26px rgba(247, 181, 0, 0.85), 0 0 54px rgba(247, 181, 0, 0.55);
+  }
+}
+
+/* ===== Image defines height; text matches ===== */
+:root {
+  --why-aspect: 16/9;
+  --why-minh: 320px;
+}
+.why__imgCol {
+  aspect-ratio: var(--why-aspect);
+  min-height: var(--why-minh);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.why__imgCol img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Text card stretches to match image height */
+.why__cardWrap {
+  display: flex;
+}
+.why__card {
+  box-sizing: border-box;
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px 24px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+.why__content h3 {
+  margin: 0 0 10px;
+  font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+  font-weight: 700;
+  color: #0b66a3;
+}
+.why__content p {
+  margin: 0;
+  line-height: 1.55;
+  color: #4a5568;
+}
+
+/* ===== Placement by row parity ===== */
+/* ODD rows: TEXT left (1–5), IMAGE right (7–11) */
+.why__row:nth-child(odd) .why__cardWrap {
+  grid-column: 1 / 6;
+}
+.why__row:nth-child(odd) .why__imgCol {
+  grid-column: 7 / 12;
+}
+
+/* EVEN rows: IMAGE left (1–5), TEXT right (7–11) */
+.why__row:nth-child(even) .why__imgCol {
+  grid-column: 1 / 6;
+}
+.why__row:nth-child(even) .why__cardWrap {
+  grid-column: 7 / 12;
+}
+
+/* Optional: a touch more room near the badge side */
+.why__row:nth-child(odd) .why__card {
+  padding-inline-end: 32px;
+}
+.why__row:nth-child(even) .why__card {
+  padding-inline-start: 32px;
+}
+
+/* Tablet */
+@media (max-width: 1100px) {
+  .why__badge {
+    width: 52px;
+    height: 52px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+  .why__row {
+    grid-template-columns: 1fr; /* stack */
+    gap: 12px;
+  }
+
+  /* allow stacking (override desktop grid-row:1) */
+  .why__row > .why__imgCol,
+  .why__row > .why__badgeCol,
+  .why__row > .why__cardWrap {
+    grid-column: 1 / -1;
+    grid-row: auto; /* <-- critical for stacking */
+  }
+
+  /* order: image → badge → text */
+  .why__imgCol {
+    order: 1;
+    aspect-ratio: auto;
+    min-height: 220px;
+  }
+  .why__badgeCol {
+    order: 2;
+    margin-block: 4px;
+  }
+  .why__cardWrap {
+    order: 3;
+  }
+
+  /* hide the vertical rail on mobile */
+  .why__rows::before {
+    left: 20px;
+    transform: none;
+    width: 0;
+  }
+
+  .why__badge {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+/* Small phones */
+@media (max-width: 600px) {
+  .why__title {
+    font-size: clamp(1.6rem, 5vw, 2rem);
+  }
+}

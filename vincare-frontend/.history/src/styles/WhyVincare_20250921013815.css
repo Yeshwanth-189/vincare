@@ -1,0 +1,204 @@
+/* =========================================================
+   Why Vincare — Fresh build (namespaced, collision-proof)
+   ========================================================= */
+
+/* Section container */
+.wv {
+  position: relative;
+  gap: clamp(16px, 2vw, 24px);
+  padding-top: clamp(16px, 2vw, 24px);
+  padding-bottom: clamp(24px, 3vw, 36px);
+}
+
+/* Heading spans 2–11 (gutters 1 & 12) */
+.wv .wv__title {
+  grid-column: 2 / 12;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp(2rem, 3.2vw, 2.5rem);
+  margin-bottom: clamp(10px, 2vw, 16px);
+}
+
+/* Rows container spans content area and draws a subtle vertical rail */
+.wv .wv__rows {
+  grid-column: 2 / 12;
+  position: relative;
+}
+
+/* Center vertical rail */
+.wv .wv__rows::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    180deg,
+    rgba(247, 181, 0, 0.25),
+    rgba(247, 181, 0, 0)
+  );
+  pointer-events: none;
+}
+
+/* Each row is a single 12-col grid */
+.wv .wv__row {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 16px;
+  align-items: stretch; /* equal heights for card & image */
+  margin-block: clamp(10px, 1.4vw, 16px);
+  position: relative;
+  isolation: isolate; /* keep badge above but scoped to row */
+}
+
+/* ------- Explicit placements (DESKTOP) ------- */
+/* Type A (default): TEXT LEFT, IMAGE RIGHT */
+.wv .wv__row--a .wv__card {
+  grid-column: 2 / 7; /* cols 2–6 */
+}
+.wv .wv__row--a .wv__media {
+  grid-column: 7 / 12; /* cols 7–11 */
+}
+
+/* Type B: IMAGE LEFT, TEXT RIGHT */
+.wv .wv__row--b .wv__media {
+  grid-column: 2 / 7; /* cols 2–6 */
+}
+.wv .wv__row--b .wv__card {
+  grid-column: 7 / 12; /* cols 7–11 */
+}
+
+/* Card styling */
+.wv .wv__card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 18px 20px;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+.wv .wv__content h3 {
+  margin: 0 0 10px;
+  font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+  font-weight: 700;
+}
+.wv .wv__content p {
+  margin: 0;
+  line-height: 1.55;
+  opacity: 0.9;
+  font-weight: 300;
+}
+
+/* Media (image) */
+.wv .wv__media {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.wv .wv__media img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+/* Center badge floating over the rail (per row) */
+.wv .wv__badgeAnchor {
+  grid-column: 1 / -1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none; /* allow interactions with card/media */
+}
+
+.wv .wv__badge {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(ellipse at 30% 30%, #ffd36b, #f7b500);
+  box-shadow: 0 0 0 3px rgba(247, 181, 0, 0.22),
+    0 0 20px rgba(247, 181, 0, 0.65), 0 0 40px rgba(247, 181, 0, 0.45);
+  animation: wv-goldPulse 2.4s ease-in-out infinite;
+}
+.wv .wv__badge span {
+  font-weight: 800;
+  color: #111; /* number in black */
+  font-size: 1.15rem;
+}
+
+@keyframes wv-goldPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 3px rgba(247, 181, 0, 0.22),
+      0 0 16px rgba(247, 181, 0, 0.55), 0 0 32px rgba(247, 181, 0, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 0 3px rgba(247, 181, 0, 0.28),
+      0 0 26px rgba(247, 181, 0, 0.85), 0 0 54px rgba(247, 181, 0, 0.55);
+  }
+}
+
+/* ===========================
+   Responsive
+   =========================== */
+@media (max-width: 1100px) {
+  .wv .wv__badge {
+    width: 52px;
+    height: 52px;
+  }
+}
+
+@media (max-width: 900px) {
+  /* Stack full width inside gutters 2–12 */
+  .wv .wv__row--a .wv__card,
+  .wv .wv__row--a .wv__media,
+  .wv .wv__row--b .wv__card,
+  .wv .wv__row--b .wv__media,
+  .wv .wv__badgeAnchor {
+    grid-column: 2 / 12;
+  }
+
+  /* Order: image → badge → text */
+  .wv .wv__media {
+    order: 1;
+  }
+  .wv .wv__badgeAnchor {
+    order: 2;
+    margin: 8px 0;
+  }
+  .wv .wv__card {
+    order: 3;
+  }
+
+  /* Hide center rail visually on mobile */
+  .wv .wv__rows::before {
+    left: 20px;
+    transform: none;
+    width: 0;
+  }
+
+  .wv .wv__badge {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+@media (max-width: 600px) {
+  .wv .wv__title {
+    font-size: clamp(1.6rem, 5vw, 2rem);
+  }
+}

@@ -1,0 +1,206 @@
+/* ---- CSS Variables (adjust as needed) ---- */
+:root {
+  --hero-min-h: clamp(420px, 70vh, 760px);
+
+  /* Gradient: dark blue → light blue → light green → green */
+  --grad-start: #0a2540; /* dark blue */
+  --grad-mid1: #1976d2; /* light/professional blue */
+  --grad-mid2: #7ed957; /* light green */
+  --grad-end: #2e7d32; /* green */
+
+  /* Text & UI */
+  --text-on-dark: #ffffff;
+  --text-dim: #e6eefc;
+  --btn-primary-bg: #0a2540;
+  --btn-primary-bg-hover: #093056;
+  --btn-ghost-bg: transparent;
+  --btn-ghost-border: rgba(255, 255, 255, 0.6);
+  --btn-ghost-bg-hover: rgba(255, 255, 255, 0.12);
+
+  /* Right panel overlay */
+  --image-overlay: rgba(0, 0, 0, 0.25);
+}
+
+/* ---- Layout ---- */
+.hero {
+  /* 12-column grid: 1 & 12 are gutters */
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: stretch;
+  min-height: var(--hero-min-h);
+  width: 100%;
+
+  /* Full-section gradient background */
+  background: linear-gradient(
+    115deg,
+    var(--grad-start) 0%,
+    var(--grad-mid1) 35%,
+    var(--grad-mid2) 70%,
+    var(--grad-end) 100%
+  );
+
+  color: var(--text-on-dark);
+  position: relative;
+  overflow: clip;
+  isolation: isolate; /* ensure overlay effects are contained */
+  padding-block: clamp(24px, 5vh, 48px);
+}
+
+/* Optional, subtle animated sheen (respects prefers-reduced-motion) */
+@media (prefers-reduced-motion: no-preference) {
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: -20% -10%;
+    background: radial-gradient(
+      60% 60% at 20% 10%,
+      rgba(255, 255, 255, 0.08),
+      transparent 60%
+    );
+    filter: blur(20px);
+    animation: floatSheen 12s ease-in-out infinite alternate;
+    z-index: 0;
+  }
+
+  @keyframes floatSheen {
+    0% {
+      transform: translate3d(0, 0, 0) rotate(0deg);
+    }
+    100% {
+      transform: translate3d(3%, -2%, 0) rotate(1deg);
+    }
+  }
+}
+
+/* Empty gutters */
+.hero__gutter {
+  grid-column: span 1;
+}
+
+/* Left content (columns 2–6) */
+.hero__content {
+  grid-column: 2 / span 5; /* columns 2–6 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  padding: clamp(12px, 2vw, 16px);
+  z-index: 1;
+}
+
+/* Right panel image (columns 7–11) */
+.hero__image {
+  grid-column: 7 / span 5; /* columns 7–11 */
+  position: relative;
+  background-image: var(--hero-bg-img),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.25));
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 280px;
+  z-index: 1;
+}
+
+/* Image dark overlay for contrast */
+.hero__image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--image-overlay);
+}
+
+/* ---- Typography ---- */
+.hero__title {
+  font-size: clamp(2rem, 3.4vw, 3.25rem);
+  line-height: 1.1;
+  letter-spacing: 0.2px;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.hero__subtitle {
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+  line-height: 1.5;
+  color: var(--text-dim);
+  margin: 0.25rem 0 0.5rem 0;
+  max-width: 52ch;
+}
+
+/* ---- Buttons ---- */
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.btn {
+  appearance: none;
+  border: none;
+  border-radius: 9999px;
+  padding: 12px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 180ms ease, background-color 180ms ease,
+    box-shadow 180ms ease;
+  will-change: transform;
+}
+
+.btn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.btn--primary {
+  background: var(--btn-primary-bg);
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+.btn--primary:hover {
+  background: var(--btn-primary-bg-hover);
+  transform: translateY(-1px);
+}
+
+.btn--ghost {
+  background: var(--btn-ghost-bg);
+  color: #fff;
+  border: 2px solid var(--btn-ghost-border);
+  backdrop-filter: saturate(120%) blur(2px);
+}
+
+.btn--ghost:hover {
+  background: var(--btn-ghost-bg-hover);
+  transform: translateY(-1px);
+}
+
+/* ---- Responsiveness ---- */
+@media (max-width: 1024px) {
+  .hero__content {
+    grid-column: 2 / span 10; /* expand content */
+    padding-right: clamp(12px, 3vw, 24px);
+  }
+  .hero__image {
+    grid-column: 2 / span 10; /* move image below content */
+    min-height: 220px;
+    margin-top: 16px;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding-block: 24px 28px;
+  }
+  .hero__title {
+    font-size: clamp(1.85rem, 8vw, 2.25rem);
+  }
+  .hero__subtitle {
+    font-size: clamp(1rem, 3.7vw, 1.1rem);
+  }
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

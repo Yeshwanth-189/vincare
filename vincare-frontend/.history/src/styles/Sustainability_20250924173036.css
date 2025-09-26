@@ -1,0 +1,111 @@
+/* ---- Planet Section (background image circle at bottom, responsive cards) ---- */
+
+:root {
+  --planet-circle-bg: url("/assets/planet-bg.jpg");
+}
+
+/* Root container */
+.planet {
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  padding: 20px
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--planet-gap-y) var(--planet-gap-x);
+  max-width: var(--planet-max-width);
+  overflow: visible;
+}
+
+.planet__circle {
+  width: 100%;
+  max-width: var(--planet-circle-max);
+  aspect-ratio: 1 / 1;
+  border-radius: 0 0 9999px 9999px; /* flat top, round bottom */
+  background-image: var(--planet-circle-bg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+}
+
+/* ===== Heading ===== */
+.planet__heading {
+  grid-column: 2 / 12;
+  text-align: center;
+  color: var(--planet-heading-color);
+  font-family: "Montserrat", system-ui, sans-serif;
+  font-weight: 800;
+  line-height: 1.05;
+  font-size: clamp(2rem, 10vw, 4rem);
+  margin: clamp(20px, 3vw, 32px) 0 clamp(10px, 2vw, 16px);
+}
+
+/* ===== Cards ===== */
+.planet__cards {
+  grid-column: 2 / 12;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(14px, 2.4vw, 24px);
+}
+
+@media (min-width: 768px) {
+  .planet__cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.planet__card {
+  border: 1px solid var(--planet-card-border);
+  background: var(--planet-card-bg);
+  border-radius: var(--planet-card-radius);
+  padding: clamp(16px, 2.2vw, 24px);
+  box-shadow: var(--planet-card-shadow);
+  backdrop-filter: blur(4px);
+  transition: transform 220ms ease, box-shadow 220ms ease,
+    border-color 220ms ease;
+}
+.planet__card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+.planet__cardTitle {
+  color: var(--planet-heading-color);
+  font-family: "Montserrat", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  margin: 0 0 6px;
+}
+.planet__cardText {
+  color: var(--planet-text-color);
+  font-family: "Roboto", system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.65;
+  opacity: var(--planet-card-text-dim);
+  margin: 0;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+  .planet__heading,
+  .planet__cards {
+    grid-column: 1 / -1;
+    padding-left: clamp(12px, 3vw, 24px);
+    padding-right: clamp(12px, 3vw, 24px);
+  }
+}
+@media (max-width: 600px) {
+  :root {
+    --planet-circle-max: 90vw;
+  }
+  .planet {
+    padding: clamp(16px, 6vw, 32px) 0;
+  }
+  .planet__cards {
+    gap: clamp(10px, 3.5vw, 16px);
+  }
+  .planet__cardText {
+    font-size: 1.05rem;
+  }
+}

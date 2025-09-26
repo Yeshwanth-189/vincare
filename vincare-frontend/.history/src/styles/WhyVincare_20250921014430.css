@@ -1,0 +1,98 @@
+/* ===========================
+   Why Vincare — Rectangular slabs, alternating sides
+   =========================== */
+
+.why {
+  position: relative;
+  gap: clamp(16px, 2vw, 24px);
+  padding-top: clamp(16px, 2vw, 24px);
+  padding-bottom: clamp(24px, 3vw, 36px);
+}
+
+.why .why__title {
+  grid-column: 2 / 12;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp(2rem, 3.2vw, 2.5rem);
+  margin-bottom: clamp(10px, 2vw, 16px);
+}
+
+.why .why__rows {
+  grid-column: 2 / 12; /* gutters at 1 & 12 */
+  display: grid;
+  gap: clamp(12px, 1.6vw, 18px);
+}
+
+/* A full-width rectangular slab (no radius) with image + text inside */
+.why .why__slab {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-items: stretch;
+  background: rgba(255, 255, 255, 0.06); /* subtle panel bg */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  /* NO border-radius -> keep rectangular */
+  overflow: hidden; /* ensure image doesn't stick out */
+  min-height: clamp(220px, 34vw, 420px);
+}
+
+/* Default: image left (2–6), text right (7–11) */
+.why .why__media {
+  grid-column: 1 / 7; /* includes left inner gutter of slab */
+  display: block;
+}
+.why .why__media img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+/* Text block */
+.why .why__body {
+  grid-column: 7 / 13; /* to the end of slab; uses right inner gutter */
+  display: grid;
+  align-content: center;
+  padding: clamp(16px, 2.2vw, 28px);
+  /* rectangular look; no radius */
+}
+.why .why__body h3 {
+  margin: 0 0 10px;
+  font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+  font-weight: 700;
+}
+.why .why__body p {
+  margin: 0;
+  line-height: 1.6;
+  opacity: 0.95;
+  font-weight: 300;
+}
+
+/* SWAP: image right, text left */
+.why .why__slab--swap .why__media {
+  grid-column: 7 / 13;
+}
+.why .why__slab--swap .why__body {
+  grid-column: 1 / 7;
+}
+
+/* ======= Responsive ======= */
+@media (max-width: 900px) {
+  .why .why__slab {
+    grid-template-columns: 1fr; /* stack */
+    min-height: unset;
+  }
+  .why .why__media,
+  .why .why__slab--swap .why__media,
+  .why .why__body,
+  .why .why__slab--swap .why__body {
+    grid-column: 1 / -1;
+  }
+
+  /* Order: image then text for both types */
+  .why .why__media {
+    order: 1;
+  }
+  .why .why__body {
+    order: 2;
+  }
+}

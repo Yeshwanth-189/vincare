@@ -1,0 +1,190 @@
+:root {
+  /* Layout + rhythm /
+--planet-gap-x: clamp(12px, 2vw, 20px);
+--planet-gap-y: clamp(16px, 3vw, 28px);
+--planet-max-width: 1200px;
+--planet-circle-max: 720px; / max size of the circle container */
+
+  /* Cards */
+  --planet-card-radius: 16px;
+  --planet-card-border: rgba(255, 255, 255, 0.12);
+  --planet-card-bg: rgba(255, 255, 255, 0.04);
+  --planet-card-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+  --planet-card-text-dim: 0.85;
+
+  /* Brand fallbacks */
+  --planet-brand-dark: #0a2540;
+  --planet-heading-color: #ffffff;
+  --planet-text-color: rgba(255, 255, 255, 0.92);
+}
+
+/* Root wrapper */
+.planet {
+  position: relative;
+  min-height: clamp(560px, 60vh, 760px);
+  display: grid;
+  align-items: start;
+  padding: clamp(24px, 6vw, 64px) 0;
+}
+
+/* 12-column content grid */
+.planet__grid {
+  width: min(var(--planet-max-width), 92vw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--planet-gap-y) var(--planet-gap-x);
+}
+
+/* Use gutters: columns 1 & 12 are visual gutters; content spans 2–11 */
+.planet__circleWrap,
+.planet__headingWrap,
+.planet__cards {
+  grid-column: 2 / 12;
+}
+
+/* ========== Cropped Circle (top image) ========== */
+
+.planet__circleWrap {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.planet__circle {
+  position: relative;
+  width: min(100%, var(--planet-circle-max));
+  aspect-ratio: 1 / 1; /* perfect circle base /
+border-radius: 9999px;
+overflow: hidden; / ensure the crop hides overflow /
+/ show only the top ~75% of the circle (crop bottom 25%) */
+  clip-path: inset(0 0 25% 0);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+}
+
+.planet__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translateZ(0); /* helps some browsers with perf */
+}
+
+/* ========== Heading (4rem target on desktop) ========== */
+
+.planet__headingWrap {
+  text-align: center;
+}
+
+.planet__heading {
+  color: var(--planet-heading-color);
+  font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto,
+    sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  line-height: 1.05;
+  /* Mobile → Desktop fluid size (min 2rem, max 4rem) */
+  font-size: clamp(2rem, 10vw, 4rem);
+  margin: clamp(10px, 2vw, 16px) 0 clamp(8px, 1.5vw, 12px);
+}
+
+/* ========== Cards (4 total, 2 per row desktop) ========== */
+
+.planet__cards {
+  display: grid;
+  grid-template-columns: 1fr; /* default: single column (mobile) */
+  gap: clamp(14px, 2.4vw, 24px);
+}
+
+@media (min-width: 768px) {
+  .planet__cards {
+    grid-template-columns: repeat(2, 1fr); /* 2 per row from md+ */
+  }
+}
+
+.planet__card {
+  border: 1px solid var(--planet-card-border);
+  background: var(--planet-card-bg);
+  border-radius: var(--planet-card-radius);
+  padding: clamp(16px, 2.2vw, 24px);
+  box-shadow: var(--planet-card-shadow);
+  backdrop-filter: blur(4px);
+  transition: transform 220ms ease, box-shadow 220ms ease,
+    border-color 220ms ease;
+}
+
+.planet__card:hover,
+.planet__card:focus-within {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.planet__cardTitle {
+  color: var(--planet-heading-color);
+  font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto,
+    sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  line-height: 1.25;
+  margin: 0 0 6px;
+}
+
+.planet__cardText {
+  color: var(--planet-text-color);
+  font-family: "Roboto", system-ui, -apple-system, Segoe UI, sans-serif;
+  font-size: 1rem;
+  line-height: 1.65;
+  opacity: var(--planet-card-text-dim);
+  margin: 0;
+}
+
+/* ========== Responsive: collapse gutters on small screens ========== */
+
+@media (max-width: 900px) {
+  .planet__circleWrap,
+  .planet__headingWrap,
+  .planet__cards {
+    grid-column: 1 / -1; /* full width */
+    padding-left: clamp(12px, 3vw, 24px);
+    padding-right: clamp(12px, 3vw, 24px);
+  }
+}
+
+/* ========== Small-mobile refinements ========== */
+
+@media (max-width: 600px) {
+  /* shrink circle target size on very small screens */
+  :root {
+    --planet-circle-max: 90vw;
+  }
+
+  .planet {
+    padding: clamp(16px, 6vw, 32px) 0;
+  }
+
+  .planet__cards {
+    gap: clamp(10px, 3.5vw, 16px);
+  }
+
+  .planet__cardText {
+    font-size: 1.05rem; /* slight readability boost on phones */
+  }
+}
+
+/* ===== Optional helpers (remove if not needed) ===== */
+
+body.dark .planet__card {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+}
+body.light .planet__card {
+  border-color: rgba(0, 0, 0, 0.08);
+  background: rgba(0, 0, 0, 0.02);
+}
+
+/* Prevent accidental page freeze from other styles affecting this section */
+.planet {
+  overflow: visible;
+}

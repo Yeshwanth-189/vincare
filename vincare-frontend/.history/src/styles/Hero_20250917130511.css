@@ -1,0 +1,33 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  min-height: 100vh; /* full height */
+  background: url("../assets/heros.jpg") no-repeat center center;
+  background-size: cover; /* makes the background fill */
+}
+
+/* Gutter columns (1 & 12) */
+.col-1,
+.col-12 {
+  display: none; /* gutters are just empty space */
+}
+
+/* Main content from col 2 to col 11 */
+.col-2-11 {
+  grid-column: 2 / 12; /* spans columns 2 → 11 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white; /* for readability over background */
+  text-align: center;
+  padding: 2rem;
+  background: #1777bc;
+  background: linear-gradient(
+    90deg,
+    rgba(23, 119, 188, 1) 19%,
+    rgba(81, 186, 49, 1) 100%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  border-radius: 12px; /* optional styling */
+}

@@ -1,0 +1,202 @@
+/* ===========================
+   Why Vincare — Final CSS
+   =========================== */
+
+/* Section container */
+.why {
+  position: relative;
+  gap: clamp(16px, 2vw, 24px);
+  padding-top: clamp(16px, 2vw, 24px);
+  padding-bottom: clamp(24px, 3vw, 36px);
+}
+
+/* Heading spans 2–11 (gutters 1 & 12) */
+.why__title {
+  grid-column: 2 / 12;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp(2rem, 3.2vw, 2.5rem);
+  margin-bottom: clamp(10px, 2vw, 16px);
+}
+
+/* Rows container spans content area and draws a subtle vertical rail */
+.why__rows {
+  grid-column: 2 / 12;
+  position: relative;
+}
+.why__rows::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    180deg,
+    rgba(247, 181, 0, 0.25),
+    rgba(247, 181, 0, 0)
+  );
+  pointer-events: none;
+}
+
+/* Each row uses the 12-col grid to place:
+   - content card on one side
+   - image on the opposite side
+   - badge centered between (cols 6–8) */
+.why__row {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 16px;
+  align-items: stretch; /* ensures equal heights */
+  margin-block: clamp(10px, 1.4vw, 16px);
+  position: relative;
+}
+
+/* Image side */
+
+.why__imgCol img {
+  width: 100%;
+  height: 100%; /* fills parent height */
+  display: block;
+  border-radius: 12px;
+}
+.why__imgCol.left {
+  grid-column: 2 / 7;
+} /* cols 2–6 */
+.why__imgCol.right {
+  grid-column: 7 / 12;
+} /* cols 7–11 */
+
+/* Text side (match height to image) */
+.why__cardWrap.left {
+  grid-column: 2 / 7;
+}
+.why__cardWrap.right {
+  grid-column: 7 / 12;
+}
+
+.why__card {
+  box-sizing: border-box;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px 24px; /* base padding for both sides */
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+/* ——— Add extra room on the side near the badge (center) ——— */
+/* Odd rows: card is on the LEFT, so add space on the RIGHT (inside) */
+.why__cardWrap.left .why__card {
+  padding-inline-end: 32px;
+}
+
+/* Even rows: card is on the RIGHT, so add space on the LEFT (inside) */
+.why__cardWrap.right .why__card {
+  padding-inline-start: 32px;
+}
+
+/* Tight, consistent typography (prevents margin-collapses) */
+.why__content h3 {
+  margin: 0 0 10px;
+}
+.why__content p {
+  margin: 0;
+  line-height: 1.55;
+}
+
+/* Keep the badge floating so it doesn't steal grid space (prevents gaps) */
+.why__badgeCol {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.why__badge {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(ellipse at 30% 30%, #ffd36b, #f7b500);
+  box-shadow: 0 0 0 3px rgba(247, 181, 0, 0.22),
+    0 0 20px rgba(247, 181, 0, 0.65), 0 0 40px rgba(247, 181, 0, 0.45);
+  animation: goldPulse 2.4s ease-in-out infinite;
+}
+.why__badge span {
+  font-weight: 800;
+  color: #111; /* number in black */
+  font-size: 1.15rem;
+}
+
+@keyframes goldPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 3px rgba(247, 181, 0, 0.22),
+      0 0 16px rgba(247, 181, 0, 0.55), 0 0 32px rgba(247, 181, 0, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 0 3px rgba(247, 181, 0, 0.28),
+      0 0 26px rgba(247, 181, 0, 0.85), 0 0 54px rgba(247, 181, 0, 0.55);
+  }
+}
+
+/* ===========================
+   Responsive
+   =========================== */
+@media (max-width: 1100px) {
+  .why__badge {
+    width: 52px;
+    height: 52px;
+  }
+}
+
+@media (max-width: 900px) {
+  /* Stack everything full-width (keep gutters 2 & 12) */
+  .why__cardWrap.left,
+  .why__cardWrap.right,
+  .why__imgCol.left,
+  .why__imgCol.right,
+  .why__badgeCol {
+    grid-column: 2 / 12;
+  }
+
+  /* Order: image → badge → text */
+  .why__imgCol {
+    order: 1;
+  }
+  .why__badgeCol {
+    order: 2;
+    margin: 8px 0;
+  }
+  .why__cardWrap {
+    order: 3;
+  }
+
+  /* Hide the center rail on small screens */
+  .why__rows::before {
+    left: 20px;
+    transform: none;
+    width: 0;
+  }
+
+  .why__badge {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+@media (max-width: 600px) {
+  .why__title {
+    font-size: clamp(1.6rem, 5vw, 2rem);
+  }
+}

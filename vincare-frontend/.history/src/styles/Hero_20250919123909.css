@@ -1,0 +1,171 @@
+/* Assumes your variables.css is imported globally (e.g., in index.css) */
+
+.hero {
+  /* Full width + viewport height hero */
+  position: relative;
+  width: 100%;
+  min-height: clamp(480px, 70vh, 860px);
+  display: grid;
+  align-items: center;
+  padding-top: 10%;
+
+  /* Layered background: gradient + full-cover image */
+  --gradient: linear-gradient(
+    90deg,
+    #134e89a5 32%,
+    rgba(30, 255, 0, 0.449) 99%
+  );
+  --bg-image: var(--hero-bg-image, url("/assets/ger.jpg"));
+
+  background-image: var(--gradient), var(--bg-image);
+  background-size: cover, cover;
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
+  /* A subtle dark overlay for legibility (tweak if needed) */
+  box-shadow: inset 0 0 0 100vmax rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+}
+
+/* 12-column grid container inside the hero */
+.hero__inner {
+  width: min(1200px, 92vw);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 16px;
+  row-gap: 16px;
+  padding: clamp(24px, 4vw, 48px) 0;
+}
+
+/* Content from columns 2–7 (1 and 12 are gutters) */
+.hero__content {
+  grid-column: 1 / 7; /* spans columns 2..7 inclusive */
+  color: #fff; /* ensure readability over image/gradient */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.hero__visual {
+  grid-column: 8 / 12; /* spans 8,9,10,11 */
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  padding: 8px;
+}
+
+.hero__visual-img {
+  width: 100%;
+  height: auto;
+  object-fit: contain; /* no cropping */
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.25));
+  user-select: none;
+  pointer-events: none;
+}
+
+.hero__title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 3.5vw + 0.5rem, 2.25rem);
+  line-height: 1.1;
+  margin: 0 0 var(--space-sm);
+  color: #fff; /* override heading default color for contrast */
+}
+
+.hero__text {
+  display: block; /* Make it a block element */
+  max-width: 400px; /* Control width so it forms a block */
+  margin: 10% 0% 10% 0%; /* Center horizontally with auto */
+  padding: 20px; /* Add spacing inside */
+  font-family: "Lato", sans-serif; /* Use a clean, readable font */
+  background: rgba(
+    154,
+    154,
+    154,
+    0.126
+  ); /* Optional background to see the block */
+  color: #eaf4ff;
+  text-align: justify; /* Justify text */
+  border-radius: 8px; /* Optional rounded edges */
+}
+/* Actions (two buttons) */
+.hero__actions {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.btn {
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  padding: 12px 18px;
+  border-radius: 5px;
+  box-shadow: var(--shadow-md);
+  transition: transform 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
+  text-decoration: none;
+  justify-content: center;
+  will-change: transform;
+  display: inline-flex; /* Align icon + text */
+  align-items: center;
+  gap: 8px; /* space between icon and text */
+  padding: 0.75rem 1.25rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn__icon {
+  font-size: 1.2em; /* Adjust size */
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid rgb(255, 255, 255);
+  color: #fff;
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn--primary {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.btn--ghost {
+  background: rgb(38, 162, 48);
+  color: #fff;
+  outline: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+/* ------- Responsive ------- */
+@media (max-width: 900px) {
+  .hero__content {
+    grid-column: 2 / 12; /* let content breathe on medium screens */
+  }
+}
+
+@media (max-width: 640px) {
+  .hero__inner {
+    width: 92vw;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    row-gap: 12px;
+    padding-top: 10%;
+  }
+
+  .hero__content {
+    grid-column: 2 / 12; /* gutters stay, content fills */
+  }
+
+  .hero {
+    min-height: 70vh;
+  }
+
+  .hero__actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

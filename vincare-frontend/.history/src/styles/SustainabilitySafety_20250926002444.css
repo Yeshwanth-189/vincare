@@ -1,0 +1,351 @@
+/* Root spacing & typography */
+.sustainability {
+  --sust-gap: clamp(12px, 2.2vw, 24px);
+  --sust-card-gap: clamp(10px, 2vw, 16px);
+  --sust-radius: 14px;
+  --sust-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  --sust-shadow-hover: 0 10px 28px rgba(0, 0, 0, 0.18);
+  --sust-border: 1px solid rgba(0, 0, 0, 0.06);
+  --sust-muted: #666;
+  --sust-title: #0a2540; /* dark navy */
+  --sust-accent: #1976d2; /* light blue */
+
+  display: block;
+  padding: clamp(20px, 4vw, 40px) var(--sust-pad-x);
+}
+
+.sust__safe__grid {
+  margin: 0 auto;
+  max-width: var(--sust-maxw);
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--sust-gap);
+  background: #fff;
+}
+
+/* Gutters: columns 1 and 12 (kept empty) */
+.sust__gutter {
+  grid-column: span 1;
+}
+
+/* Main content spans columns 2–11 */
+.sust__content {
+  grid-column: 2 / 12;
+  display: grid;
+  grid-template-rows: auto auto;
+  row-gap: var(--sust-gap);
+}
+
+/* Heading */
+
+.slide_safe-in {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1), opacity 600ms ease;
+  color: var(--color-primary);
+}
+.slide_safe-in--visible {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--color-primary);
+}
+
+/* Two-column content inside the 2–11 band */
+.sust__twoCol {
+  display: grid;
+  grid-template-columns: repeat(
+    10,
+    minmax(0, 1fr)
+  ); /* we’ll map 2–6 and 7–11 */
+  gap: var(--sust-gap);
+}
+.sust__safe__title {
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp(3rem, 6vw, 4rem); /* bigger than before */
+  letter-spacing: 0.2px;
+  color: var(--color-primary);
+  margin: 0;
+  text-align: center;
+  will-change: transform, opacity;
+}
+
+/* Left column: keep stacked layout */
+.sust__left {
+  grid-column: 1 / 6;
+  display: grid;
+  grid-template-columns: 1fr; /* one column */
+  gap: var(--sust-card-gap);
+  align-content: start;
+}
+
+/* Bigger icon */
+.sust__cardIcon--lg {
+  width: clamp(40px, 5vw, 56px);
+  height: clamp(40px, 5vw, 56px);
+}
+
+/* Card body paragraph in Roboto */
+.sust__cardPara {
+  font-family: "Roboto", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: var(--sust-muted);
+  margin: 6px 0 0 0;
+}
+
+/* Card title stays in Montserrat (keeps your existing look) */
+.sust__cardTitle {
+  font-family: "Montserrat", ui-sans-serif, system-ui, -apple-system, Segoe UI,
+    Arial, sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.25;
+  margin: 0;
+  color: var(--sust-accent);
+  font-weight: 700;
+}
+
+/* Optional: give the single card a bit more padding for presence */
+.sust__card {
+  padding: clamp(14px, 2.4vw, 20px);
+}
+
+.sust__right {
+  grid-column: 6 / 11; /* maps to 7–11 of the outer 12-col band */
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: var(--sust-card-gap);
+  align-content: start;
+}
+.sust__safe__intro {
+  grid-column: 1 / -1; /* span both left sub-columns */
+  font-family: "Roboto", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+  font-size: 1rem;
+  padding: 5%;
+  margin-top: 7%;
+  text-align: justify;
+  line-height: 1.7;
+  color: var(--color-primary);
+  font-weight: 500;
+}
+.sust__safe__highlight {
+  font-weight: 700;
+  color: var(--color-primary);
+  font-size: 2rem;
+  margin-right: 4px;
+}
+
+/* Card title in Montserrat */
+.sust__cardTitle {
+  font-family: "Montserrat", ui-sans-serif, system-ui, -apple-system, Segoe UI,
+    Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.2;
+  margin: 0;
+  color: var(--sust-accent);
+  font-weight: 600;
+}
+
+/* Two bullet points in Roboto */
+.sust__points {
+  font-family: "Roboto", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--sust-muted);
+  list-style: disc;
+  padding-left: 1.1rem; /* indent bullets */
+  margin: 6px 0 0 0;
+}
+.sust__points li + li {
+  margin-top: 4px; /* a little spacing between the two points */
+}
+.sust__callout {
+  position: relative;
+  padding: clamp(16px, 3vw, 28px) clamp(16px, 3vw, 28px);
+  background: #fff; /* or transparent, your call */
+  border-radius: 14px; /* subtle rounding */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  margin: 5%;
+  isolation: isolate; /* ensure pseudo-elements layer right */
+}
+
+/* Top & bottom green lines */
+.sust__callout::before,
+.sust__callout::after {
+  content: "";
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  height: 3px;
+  background: linear-gradient(90deg, #2e7d32, #2e7d32);
+  border-radius: 2px;
+}
+.sust__callout::before {
+  top: -10px;
+}
+.sust__callout::after {
+  bottom: -10px;
+}
+
+/* Bigger icon + bigger heading inside callout */
+.sust__calloutHead {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  column-gap: clamp(12px, 2vw, 18px);
+  margin-bottom: clamp(8px, 1.6vw, 12px);
+}
+
+.sust__calloutIcon {
+  width: clamp(56px, 7vw, 84px);
+  height: clamp(56px, 7vw, 84px);
+  object-fit: contain;
+}
+
+.sust__calloutTitle {
+  font-family: "Montserrat", ui-sans-serif, system-ui, -apple-system, Segoe UI,
+    Arial, sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  line-height: 1.15;
+  /* Bigger than your previous sub-heading */
+  font-size: clamp(1.4rem, 3.2vw, 2rem);
+  color: var(--color-secondary);
+  margin: 0;
+}
+
+/* Paragraph in Roboto */
+.sust__calloutText {
+  font-family: "Roboto", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+  font-size: clamp(0.98rem, 1.4vw, 1.05rem);
+  line-height: 1.7;
+  color: var(--sust-muted);
+  margin: clamp(6px, 1vw, 10px) 0 0 0;
+  text-align: justify;
+}
+
+/* Make sure the left column stacks cleanly (one per row layout) */
+.sust__left {
+  grid-column: 1 / 6;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sust-card-gap);
+  align-content: start;
+}
+
+/* Optional: tighten lines on mobile */
+@media (max-width: 700px) {
+  .sust__callout::before,
+  .sust__callout::after {
+    left: 4%;
+    right: 4%;
+  }
+}
+/* Cards */
+.sust__card {
+  background: #fff;
+  border: var(--sust-border);
+  border-radius: var(--sust-radius);
+  box-shadow: var(--sust-shadow);
+  padding: clamp(12px, 2.2vw, 16px);
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+.sust__card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--sust-shadow-hover);
+}
+.sust__cardHead {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  align-items: center;
+  column-gap: 10px;
+  margin-bottom: 8px;
+}
+.sust__cardIcon {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+.sust__cardTitle {
+  font-size: 1rem;
+  line-height: 1.2;
+  margin: 0;
+  color: var(--sust-accent);
+  font-weight: 600;
+}
+.sust__cardText {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: var(--sust-muted);
+}
+
+/* Video + image stack (right column) */
+.sust__safe__videoWrap,
+.sust__imageWrap {
+  width: 100%;
+  overflow: hidden;
+}
+
+.sust__safe__video {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 16 / 9;
+  margin-top: 20%;
+}
+
+.sust__imageWrap {
+  width: 100%;
+  overflow: hidden;
+  display: block;
+}
+
+.sust__safe__image {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin-left: 5%;
+  margin-bottom: 15%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  transition: transform 0.6s ease-in-out; /* smooth movement */
+  animation: floatY 2s ease-in-out infinite; /* floating animation */
+}
+
+@keyframes floatY {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* RESPONSIVE */
+@media (max-width: 1100px) {
+  .sust__twoCol {
+    grid-template-columns: 1fr; /* stack */
+  }
+  .sust__left,
+  .sust__right {
+    grid-column: 1 / -1;
+  }
+  .sust__left {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .sust__left {
+    grid-template-columns: 1fr; /* cards single column on small screens */
+  }
+  .sust__safe__title {
+    font-size: clamp(2rem, 6vw, 2rem); /* bigger than before */
+  }
+  .sust__safe__image {
+    margin-bottom: 0%;
+  }
+}

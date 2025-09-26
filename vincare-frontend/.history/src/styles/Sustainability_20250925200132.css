@@ -1,0 +1,259 @@
+/* Root spacing & typography */
+.sustainability {
+  --sust-gap: clamp(12px, 2.2vw, 24px);
+  --sust-card-gap: clamp(10px, 2vw, 16px);
+  --sust-radius: 14px;
+  --sust-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  --sust-shadow-hover: 0 10px 28px rgba(0, 0, 0, 0.18);
+  --sust-border: 1px solid rgba(0, 0, 0, 0.06);
+  --sust-muted: #666;
+  --sust-title: #0a2540; /* dark navy */
+  --sust-accent: #1976d2; /* light blue */
+
+  display: block;
+  padding: clamp(20px, 4vw, 40px) var(--sust-pad-x);
+}
+
+.sust__grid {
+  margin: 0 auto;
+  max-width: var(--sust-maxw);
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--sust-gap);
+}
+
+/* Gutters: columns 1 and 12 (kept empty) */
+.sust__gutter {
+  grid-column: span 1;
+}
+
+/* Main content spans columns 2–11 */
+.sust__content {
+  grid-column: 2 / 12;
+  display: grid;
+  grid-template-rows: auto auto;
+  row-gap: var(--sust-gap);
+}
+
+/* Heading */
+
+.slide-in {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1), opacity 600ms ease;
+}
+.slide-in--visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Two-column content inside the 2–11 band */
+.sust__twoCol {
+  display: grid;
+  grid-template-columns: repeat(
+    10,
+    minmax(0, 1fr)
+  ); /* we’ll map 2–6 and 7–11 */
+  gap: var(--sust-gap);
+}
+.sust__title {
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp(3rem, 6vw, 4rem); /* bigger than before */
+  letter-spacing: 0.2px;
+  color: var(--color-secondary);
+  margin: 0;
+  text-align: center;
+  will-change: transform, opacity;
+  margin: 5%;
+}
+
+/* Left column: keep stacked layout */
+.sust__left {
+  grid-column: 1 / 6;
+  display: grid;
+  grid-template-columns: 1fr; /* one column */
+  gap: var(--sust-card-gap);
+  align-content: start;
+}
+
+/* Bigger icon */
+.sust__cardIcon--lg {
+  width: clamp(40px, 5vw, 56px);
+  height: clamp(40px, 5vw, 56px);
+}
+
+/* Card body paragraph in Roboto */
+.sust__cardPara {
+  font-family: "Roboto", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: var(--sust-muted);
+  margin: 6px 0 0 0;
+}
+
+/* Card title stays in Montserrat (keeps your existing look) */
+.sust__cardTitle {
+  font-family: "Montserrat", ui-sans-serif, system-ui, -apple-system, Segoe UI,
+    Arial, sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.25;
+  margin: 0;
+  color: var(--sust-accent);
+  font-weight: 700;
+}
+
+/* Optional: give the single card a bit more padding for presence */
+.sust__card {
+  padding: clamp(14px, 2.4vw, 20px);
+}
+
+.sust__right {
+  grid-column: 6 / 11; /* maps to 7–11 of the outer 12-col band */
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: var(--sust-card-gap);
+  align-content: start;
+}
+.sust__intro {
+  grid-column: 1 / -1; /* span both left sub-columns */
+  font-family: "Roboto", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+  font-size: 1rem;
+  padding: 5%;
+  margin-top: 7%;
+  text-align: justify;
+  line-height: 1.7;
+  color: var(--color-secondary);
+  font-weight: 500;
+}
+.sust__highlight {
+  font-weight: 700;
+  color: var(--color-secondary); /* green */
+  font-size: 2rem;
+  margin-right: 4px;
+}
+
+/* Card title in Montserrat */
+.sust__cardTitle {
+  font-family: "Montserrat", ui-sans-serif, system-ui, -apple-system, Segoe UI,
+    Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.2;
+  margin: 0;
+  color: var(--sust-accent);
+  font-weight: 600;
+}
+
+/* Two bullet points in Roboto */
+.sust__points {
+  font-family: "Roboto", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--sust-muted);
+  list-style: disc;
+  padding-left: 1.1rem; /* indent bullets */
+  margin: 6px 0 0 0;
+}
+.sust__points li + li {
+  margin-top: 4px; /* a little spacing between the two points */
+}
+
+/* Cards */
+.sust__card {
+  background: #fff;
+  border: var(--sust-border);
+  border-radius: var(--sust-radius);
+  box-shadow: var(--sust-shadow);
+  padding: clamp(12px, 2.2vw, 16px);
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+.sust__card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--sust-shadow-hover);
+}
+.sust__cardHead {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  align-items: center;
+  column-gap: 10px;
+  margin-bottom: 8px;
+}
+.sust__cardIcon {
+  width: 100%;
+  height: 28px;
+  object-fit: contain;
+}
+.sust__cardTitle {
+  font-size: 1rem;
+  line-height: 1.2;
+  margin: 0;
+  color: var(--sust-accent);
+  font-weight: 600;
+}
+.sust__cardText {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: var(--sust-muted);
+}
+
+/* Video + image stack (right column) */
+.sust__videoWrap,
+.sust__imageWrap {
+  width: 100%;
+  overflow: hidden;
+}
+
+.sust__video {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 16 / 9;
+}
+
+.sust__imageWrap {
+  width: 100%;
+  overflow: hidden;
+  display: block;
+}
+
+.sust__image {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  transition: transform 0.6s ease-in-out; /* smooth movement */
+  animation: floatY 2s ease-in-out infinite;
+}
+
+@keyframes floatY {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* RESPONSIVE */
+@media (max-width: 1100px) {
+  .sust__twoCol {
+    grid-template-columns: 1fr; /* stack */
+  }
+  .sust__left,
+  .sust__right {
+    grid-column: 1 / -1;
+  }
+  .sust__left {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .sust__left {
+    grid-template-columns: 1fr; /* cards single column on small screens */
+  }
+}

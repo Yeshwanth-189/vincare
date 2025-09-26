@@ -1,0 +1,369 @@
+/* --------------------------------------------------
+   CSS (place in: src/styles/whoWeAre.css)
+-------------------------------------------------- */
+
+/* Root grid */
+:root {
+  --who-maxw: 1200px;
+  --who-pad: clamp(16px, 2.5vw, 28px);
+  --who-gap: clamp(16px, 2vw, 24px);
+  --card-radius: 18px;
+  --card-shadow: 0 18px 50px rgba(0, 0, 0, 0.15);
+  --card-outline: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.who {
+  max-width: var(--who-maxw);
+  margin: 0 auto;
+  padding: calc(var(--who-pad) * 2) var(--who-pad);
+}
+
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--who-gap);
+}
+
+/* Centered heading spanning cols 2-11 (gutters are 1 & 12) */
+.who__title {
+  grid-column: 2 / 12;
+  text-align: center;
+  font-size: clamp(4rem, 5.5vw + 0.5rem, 4.25rem);
+  font-family: "Montserrat", sans-serif;
+  line-height: 1.15;
+  margin-bottom: clamp(14px, 2vw, 18px);
+}
+
+/* Left column (2-7) */
+.who__left {
+  grid-column: 2 / 8;
+  align-self: start;
+  text-align: justify;
+}
+
+.who__storyImage {
+  width: 100%;
+  margin-bottom: 16px;
+  border-radius: 14px;
+  overflow: hidden;
+}
+.who__storyImage img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.who__intro {
+  grid-column: 2 / 12;
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: justify;
+  margin-top: 1.5rem;
+  font-weight: 300;
+}
+
+.who__highlight {
+  font-weight: 700;
+  color: var(--color-secondary); /* green */
+  font-size: 2rem;
+  margin-right: 4px;
+}
+
+.who__sectionTitle {
+  font-size: clamp(20px, 2.2vw, 24px);
+  margin: 6px 0 10px;
+}
+
+.who__para {
+  font-size: 16px;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+/* Right column (8-11): metric stack */
+.who__right {
+  grid-column: 9 / 12;
+  display: grid;
+  gap: var(--who-gap);
+  align-content: start;
+  padding-top: 25%;
+}
+
+.who__right_head {
+  grid-column: 1 / -1;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  text-align: center;
+  margin-bottom: 8px;
+  font-family: "Montserrat", sans-serif;
+  text-decoration: underline;
+}
+
+.metric {
+  position: relative;
+  display: inline-block;
+}
+
+.metric__inner {
+  position: relative;
+  z-index: 2;
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Back box (shadow layer) */
+.metric::before {
+  content: "";
+  position: absolute;
+  top: 8px; /* push it down */
+  left: 8px; /* push it right */
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  background: var(--color-secondary); /* yellow back box */
+  z-index: 1;
+}
+
+.metric__value {
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  line-height: 1.1;
+  color: var(--color-secondary);
+}
+
+.metric__label {
+  text-transform: capitalize;
+  opacity: 0.8;
+}
+.metric__caption {
+  opacity: 0.6;
+  font-size: 13px;
+  margin-top: 6px;
+  color: var(--color-primary);
+}
+/* Vision + Mission + Values band */
+.who__band {
+  grid-column: 1 / -1; /* spans full container, we’ll constrain inside */
+  position: relative;
+  padding: clamp(20px, 4vw, 40px);
+  color: #fff;
+  background: var(--band-bg);
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+
+/* Inner grid columns */
+.who__bandLeft {
+  grid-column: 2 / 7; /* 2-6 */
+}
+
+.who__bandRight {
+  grid-column: 7 / 12; /* 7-11 */
+}
+
+/* Headings & text */
+.band__eyeline,
+.band__value,
+.band__subhead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 10px 0;
+  color: #ced12b;
+  font-family: "Montserrat", sans-serif;
+}
+
+.band__eyeline {
+  font-size: clamp(1.3rem, 2.2vw, 1.6rem);
+}
+.band__value {
+  font-size: clamp(1.3rem, 2.2vw, 1.6rem);
+}
+.band__subhead {
+  font-size: clamp(1.3rem, 2.2vw, 1.6rem);
+  margin-top: 10%;
+}
+
+.band__icon {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 10px 0;
+  color: #ced12b;
+  font-family: "Montserrat", sans-serif;
+  margin-top: 2%;
+}
+
+.band__para {
+  margin: 0;
+  line-height: 1.6;
+  opacity: 0.95;
+  font-family: "Roboto", sans-serif;
+  font-style: italic;
+  text-align: justify;
+  color: #fff;
+  max-width: 480px;
+}
+
+/* Mission bullets */
+.band__bullets {
+  max-width: 560px;
+  text-align: justify;
+}
+
+.band__bulletIcon {
+  margin-top: 3px;
+  font-size: 1rem;
+  color: #ced12b;
+}
+
+/* Values grid (right column) */
+.band__valuesTitle {
+  margin: 0 0 12px 0;
+  font-family: "Montserrat", sans-serif;
+  text-align: left;
+  font-size: clamp(1.2rem, 2.2vw, 1.5rem);
+  color: #fbff00;
+}
+.band__right__title {
+  font-size: clamp(1.3rem, 2.2vw, 1.6rem);
+}
+:root {
+  --value-card-w: 160px; /* fixed width */
+  --value-card-h: 160px; /* fixed height (square) */
+  --value-icon-d: 56px; /* icon circle diameter */
+}
+
+/* 3 in a row */
+.band__valuesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px 18px;
+}
+
+/* Card */
+.valueItem {
+  width: var(--value-card-w);
+  height: var(--value-card-h);
+  margin: 0 auto; /* center within its grid cell */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* center icon vertically */
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 5px;
+  backdrop-filter: blur(4px);
+  text-align: center;
+}
+
+/* Circular icon */
+.valueIconWrap {
+  width: var(--value-icon-d);
+  height: var(--value-icon-d);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #fff; /* your accent color */
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+}
+
+.valueIcon {
+  font-size: 1.25rem;
+  color: var(--color-primary);
+}
+
+/* Label */
+.valueLabel {
+  margin-top: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  line-height: 1.2;
+  display: inline-block;
+}
+
+/* Responsive: keep 3 on wide, fall back when needed */
+@media (max-width: 980px) {
+  .band__valuesGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  :root {
+    --value-card-w: 150px;
+    --value-card-h: 150px;
+    --value-icon-d: 52px;
+  }
+}
+
+@media (max-width: 700px) {
+  .band__valuesGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 460px) {
+  .band__valuesGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Responsive */
+@media (max-width: 980px) {
+  .who__bandLeft {
+    grid-column: 2 / 12;
+  }
+  .who__bandRight {
+    grid-column: 2 / 12;
+    margin-top: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .band__valuesGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Responsive */
+@media (max-width: 980px) {
+  .who__left {
+    grid-column: 2 / 12;
+  }
+  .who__right {
+    grid-column: 2 / 12;
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .who__vision {
+    grid-template-columns: 1fr;
+  }
+  .who__title {
+    grid-column: 2 / 12;
+    text-align: center;
+    font-size: clamp(2rem, 3.5vw + 0.5rem, 2.25rem);
+    font-family: "Montserrat", sans-serif;
+    line-height: 1.15;
+    margin-bottom: clamp(14px, 2vw, 18px);
+  }
+  .who__highlight {
+    font-weight: 500;
+    color: #fff;
+    font-size: 1rem;
+    margin-right: 4px;
+  }
+  .who__intro {
+    grid-column: 2 / 12;
+    font-family: "Roboto", sans-serif;
+    font-size: 0.75rem;
+    line-height: 1.6;
+    text-align: justify;
+    margin-top: 0.5rem;
+    font-weight: 300;
+  }
+}
