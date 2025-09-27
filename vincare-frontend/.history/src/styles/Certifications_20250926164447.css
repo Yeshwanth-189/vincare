@@ -1,0 +1,82 @@
+/* 12-column container with 1 & 12 as gutters (content spans 2–11) */
+.certs {
+  --certs-max: 1200px;
+  width: min(100%, var(--certs-max));
+  margin: 0 auto;
+  padding: clamp(20px, 4vw, 56px) clamp(12px, 3vw, 24px);
+
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  row-gap: clamp(16px, 2vw, 24px);
+}
+
+.certs__title {
+  grid-column: 2 / 12;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: clamp(4rem, 5.5vw, 4rem);
+  line-height: 1.2;
+  margin: 0 0 clamp(8px, 1.2vw, 12px);
+}
+
+/* Grid for certification cards */
+.certs__grid {
+  grid-column: 2 / 12;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: clamp(12px, 2vw, 20px);
+}
+
+/* On desktop: 4 cards in one row (each spans 3 columns) */
+.certs__card {
+  grid-column: span 3;
+  background: transparent;
+  border-radius: 12px;
+  padding: clamp(8px, 1.2vw, 12px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  /* subtle hover lift */
+  transition: transform 220ms ease, filter 220ms ease;
+}
+.certs__card:hover {
+  transform: translateY(-4px);
+}
+
+.certs__img {
+  width: 240%;
+  aspect-ratio: 1.6 / 1; /* tweak as needed for your logos */
+  object-fit: contain;
+  display: block;
+  border-radius: 10px;
+  background: #f7f7f7; /* fallback backdrop for transparent logos */
+  padding: clamp(8px, 1.2vw, 12px);
+}
+
+.certs__name {
+  margin-top: 8px;
+  font-size: clamp(0.9rem, 1.4vw, 1rem);
+  font-weight: 600;
+  color: #333;
+}
+
+/* Responsive: 2 per row on tablets; 1 per row on narrow phones */
+@media (max-width: 900px) {
+  .certs__card {
+    grid-column: span 6;
+  }
+}
+@media (max-width: 520px) {
+  .certs__title {
+    font-size: clamp(1.4rem, 5.2vw, 1.8rem);
+  }
+  .certs__card {
+    grid-column: 1 / -1;
+  }
+  .certs__img {
+    width: 100%;
+  }
+}
