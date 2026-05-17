@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import NavBar from "../components/Navbar";
 import Hero from "../components/Hero";
 import About from "../components/About";
@@ -10,11 +11,27 @@ import ProductsIntro from "../components/ProductsIntro";
 // import SustainabilityCommit from "../components/SustainabilityCommit";
 import SustainabilityCarousel from "../components/SustainabilityCarousel";
 import Certifications from "../components/Certifications";
-import Clients from "../components/Clients";
-// import Contact from "../components/Contact";
-// import Footer from "../components/Footer";
+// import Clients from "../components/Clients";
+import Contact from "../components/Contact";
+import Footer from "../components/Footer";
 
 function Vincare() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!location.hash) {
+      window.scrollTo({ top: 0, behavior: "auto" });
+      return;
+    }
+
+    const sectionId = location.hash.slice(1);
+    const element = document.getElementById(sectionId);
+
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [location.hash]);
+
   return (
     <>
       <NavBar />
@@ -36,9 +53,13 @@ function Vincare() {
       <section id="certifications">
         <Certifications />
       </section>
-      <section id="certifications">
+      {/* <section id="Clients">
         <Clients />
+      </section> */}
+      <section id="contact">
+        <Contact />
       </section>
+      <Footer />
 
       {/* <section id="services">
         <Services />

@@ -2,7 +2,8 @@ import React from "react";
 import "../styles/ProductsIntro.css";
 // eslint-disable-next-line no-unused-vars
 import { motion, useReducedMotion } from "framer-motion";
-import ProductsbgImage from "../assets/product-intro-bg.png";
+//import ProductsbgImage from "../assets/product-intro-bg.png";
+import ProductsbgImage from "../assets/ProductsIntro.png";
 
 /**
  * Props:

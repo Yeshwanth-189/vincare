@@ -1,6 +1,8 @@
 import React from "react";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
+import { Link as RouterLink } from "react-router-dom";
+import { Link as ScrollLink } from "react-scroll";
 import "../styles/hero.css";
 import HeroBg from "../assets/hero-of-bg.png";
 import SideImage from "../assets/Vincare-Logo.png";
@@ -12,16 +14,16 @@ import { MdOutlineShoppingCart } from "react-icons/md";
  * - title       (string)
  * - subtitle    (string)
  * - text        (string)
- * - primaryCta  ({ label: string, onClick?: fn, href?: string })
- * - secondaryCta({ label: string, onClick?: fn, href?: string })
+ * - primaryCta  ({ label: string, onClick?: fn, href?: string, to?: string, scrollTo?: string })
+ * - secondaryCta({ label: string, onClick?: fn, href?: string, to?: string, scrollTo?: string })
  * - bgImage     (string) // URL for hero background image
  */
 export default function Hero({
   title = "VINCARE",
   subtitle = "HYGIENE",
   text = "ONE-STOP DESTINATION FOR SAFE, SUSTAINABLE HYGIENE SOLUTIONS.",
-  primaryCta = { label: "View Products", href: "#" },
-  secondaryCta = { label: "Contact Us", href: "#" },
+  primaryCta = { label: "View Products", to: "/products" },
+  secondaryCta = { label: "Contact Us", scrollTo: "contact" },
   bgImage = HeroBg,
   sideImage = SideImage,
 }) {
@@ -57,6 +59,47 @@ export default function Hero({
     show: { opacity: 1, transition: { duration: 0.35 } },
   };
 
+  const renderCta = (cta, className, Icon) => {
+    if (cta?.to) {
+      return (
+        <RouterLink className={className} to={cta.to}>
+          <Icon className="btn__icon" />
+          {cta.label}
+        </RouterLink>
+      );
+    }
+
+    if (cta?.scrollTo) {
+      return (
+        <ScrollLink
+          className={className}
+          to={cta.scrollTo}
+          smooth={true}
+          duration={700}
+        >
+          <Icon className="btn__icon" />
+          {cta.label}
+        </ScrollLink>
+      );
+    }
+
+    if (cta?.href) {
+      return (
+        <a className={className} href={cta.href}>
+          <Icon className="btn__icon" />
+          {cta.label}
+        </a>
+      );
+    }
+
+    return (
+      <button className={className} onClick={cta?.onClick}>
+        <Icon className="btn__icon" />
+        {cta.label}
+      </button>
+    );
+  };
+
   return (
     <section
       className="hero"
@@ -84,35 +127,8 @@ export default function Hero({
           </motion.p>
 
           <motion.div className="hero__actions" variants={fadeIn}>
-            {primaryCta?.href ? (
-              <a className="btn btn--primary" href={primaryCta.href}>
-                <MdOutlineShoppingCart className="btn__icon" />
-                {primaryCta.label}
-              </a>
-            ) : (
-              <button
-                className="btn btn--primary"
-                onClick={primaryCta?.onClick}
-              >
-                <MdOutlineShoppingCart className="btn__icon" />
-                {primaryCta.label}
-              </button>
-            )}
-
-            {secondaryCta?.href ? (
-              <a className="btn btn--ghost" href={secondaryCta.href}>
-                <IoMdPaperPlane className="btn__icon" />
-                {secondaryCta.label}
-              </a>
-            ) : (
-              <button
-                className="btn btn--ghost"
-                onClick={secondaryCta?.onClick}
-              >
-                <IoMdPaperPlane className="btn__icon" />
-                {secondaryCta.label}
-              </button>
-            )}
+            {renderCta(primaryCta, "btn btn--primary", MdOutlineShoppingCart)}
+            {renderCta(secondaryCta, "btn btn--ghost", IoMdPaperPlane)}
           </motion.div>
         </motion.div>
         <motion.div className="hero__visual">

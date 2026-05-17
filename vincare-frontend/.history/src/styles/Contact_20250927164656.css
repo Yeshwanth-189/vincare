@@ -1,0 +1,323 @@
+:root {
+  --brand-dark: var(--color-primary);
+  --brand-blue: var(--color-secondary);
+  --text: #333333;
+  --muted: #666666;
+  --bg: #ffffff;
+
+  /* glass / shadows */
+  --glass-bg: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.28),
+    rgba(255, 255, 255, 0.16)
+  );
+  --glass-border: rgba(255, 255, 255, 0.35);
+  --focus-ring: 0 0 0 4px rgba(25, 118, 210, 0.14);
+
+  /* extras for light-image glass mode */
+  --scrim-gradient: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.72) 0%,
+    rgba(255, 255, 255, 0.65) 40%,
+    rgba(255, 255, 255, 0.55) 100%
+  );
+  --glass-fill: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.35),
+    rgba(255, 255, 255, 0.18)
+  );
+  --glass-elev-border: rgba(255, 255, 255, 0.75);
+  --glass-shadow: 0 12px 40px rgba(10, 37, 64, 0.12);
+}
+
+.container {
+  width: min(1100px, 92%);
+  margin-inline: auto;
+}
+
+.contact-section {
+  position: relative;
+  background: radial-gradient(
+      1200px 600px at -10% -20%,
+      rgba(25, 118, 210, 0.08),
+      transparent 55%
+    ),
+    radial-gradient(
+      900px 480px at 110% 120%,
+      rgba(10, 37, 64, 0.05),
+      transparent 55%
+    ),
+    var(--bg);
+  color: var(--text);
+  padding: 64px 0 80px;
+}
+
+/* Add this class when you use a light background image via inline style */
+.contact--with-bg {
+  background-size: cover;
+  background-position: center;
+  isolation: isolate;
+}
+.contact--with-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--scrim-gradient); /* light scrim to keep text readable */
+  z-index: 0;
+}
+.contact--with-bg .container,
+.contact--with-bg .contact__heading {
+  position: relative;
+  z-index: 1;
+}
+
+.contact__heading {
+  text-align: center;
+  font-weight: 800;
+  color: var(--brand-dark);
+  letter-spacing: 0.2px;
+  margin-bottom: 18px;
+}
+
+/* grid */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0; /* no gap between columns */
+}
+
+/* cards (default: clean, borderless) */
+.contact-info,
+.contact-form-wrap {
+  padding: clamp(24px, 3vw, 32px);
+  background: var(--bg);
+  border: none;
+  box-shadow: none;
+  position: relative;
+}
+
+/* elevate to glass when on light image bg */
+.contact--with-bg .contact-info,
+.contact--with-bg .contact-form-wrap {
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-elev-border);
+  backdrop-filter: blur(14px) saturate(120%);
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
+  box-shadow: var(--glass-shadow);
+  border-radius: 18px;
+}
+
+.contact-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 800;
+  color: var(--brand-dark);
+  margin: 0 0 16px;
+}
+.contact-title .title-icon {
+  color: var(--color-primary);
+}
+
+/* subtitle */
+.contact-subtitle {
+  margin: -4px 0 20px;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* info block */
+.info-block .org {
+  margin: 8px 0 12px;
+  font-weight: 700;
+  color: var(--brand-dark);
+}
+
+.info-block .label {
+  margin: 18px 0 6px;
+  font-size: 0.92rem;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.label--inline {
+  margin-top: 8px;
+}
+
+address {
+  font-style: normal;
+  line-height: 1.6;
+}
+
+.email {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 600;
+}
+.email:hover {
+  text-decoration: underline;
+}
+
+/* map */
+.map-wrap {
+  margin-top: 18px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--bg);
+  outline: 1px solid rgba(0, 0, 0, 0.06);
+}
+.map-wrap iframe {
+  display: block;
+  width: 100%;
+  height: 240px;
+  border: 0;
+}
+/* Transparent Glass Slab Effect */
+.contact-info {
+  background: rgba(255, 255, 255, 0.15); /* very light frosted fill */
+  border: 1px solid rgba(255, 255, 255, 0.4); /* subtle edge highlight */
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Optional glossy sheen */
+.contact-info::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.25) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  pointer-events: none;
+}
+/* glass frame for map in light-image mode */
+.contact--with-bg .map-wrap {
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-elev-border);
+  outline: none;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: var(--glass-shadow);
+}
+
+/* form rows */
+.contact-form .row {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.contact-form .row.two {
+  grid-template-columns: 1fr 1fr;
+}
+
+/* field + icons */
+.field label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+  color: var(--brand-dark);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.input-icon {
+  position: relative;
+  display: grid;
+  align-items: center;
+}
+.input-icon > svg {
+  position: absolute;
+  left: 12px;
+  pointer-events: none;
+  opacity: 0.8;
+}
+.input-icon.textarea > svg {
+  top: 12px;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 12px 14px 12px 38px; /* room for icon */
+  font: inherit;
+  background: #fff;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.08s;
+}
+.field textarea {
+  padding-left: 38px;
+}
+
+.field input:hover,
+.field textarea:hover {
+  border-color: #ccc;
+}
+
+.field input:focus,
+.field textarea:focus {
+  border-color: var(--brand-blue);
+  box-shadow: var(--focus-ring);
+}
+
+/* submit */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--brand-blue);
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-weight: 700;
+  background: var(--brand-blue);
+  color: #fff;
+  cursor: pointer;
+  transition: transform 90ms ease, background 180ms ease, color 180ms ease,
+    box-shadow 180ms ease;
+}
+.btn-primary:hover {
+  background: #fff;
+  color: var(--brand-blue);
+  box-shadow: 0 10px 28px rgba(25, 118, 210, 0.18);
+}
+.btn-primary:active {
+  transform: translateY(1px);
+}
+
+/* accessibility: reduced transparency fallback */
+@media (prefers-reduced-transparency: reduce) {
+  .contact--with-bg .contact-info,
+  .contact--with-bg .contact-form-wrap,
+  .contact--with-bg .map-wrap {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: none;
+  }
+}
+
+/* responsive */
+@media (max-width: 900px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+  .contact-form .row.two {
+    grid-template-columns: 1fr;
+  }
+  .map-wrap iframe {
+    height: 220px;
+  }
+}

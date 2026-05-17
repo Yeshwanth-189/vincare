@@ -36,6 +36,11 @@ import WhyVincare from "../components/WhyVincare.jsx";
 export default function WhoWeAreSection({ storyImg = AboutBg }) {
   const rootRef = useRef(null);
   const inView = useInView(rootRef, { once: true, margin: "-80px" });
+  const metricsRef = useRef(null);
+  const metricsInView = useInView(metricsRef, {
+    once: true,
+    amount: 0.45,
+  });
 
   // --- Count‑up hook
   const useCountUp = (
@@ -67,17 +72,17 @@ export default function WhoWeAreSection({ storyImg = AboutBg }) {
   };
 
   // Metrics
-  const [sqft, startSqft] = useCountUp(200_000_000, { duration: 1800 });
-  const [partners, startPartners] = useCountUp(20, { duration: 1200 });
-  const [clients, startClients] = useCountUp(80, { duration: 1200 });
+  const [sqft, startSqft] = useCountUp(200_000_000, { duration: 2800 });
+  const [partners, startPartners] = useCountUp(20, { duration: 2200 });
+  const [clients, startClients] = useCountUp(80, { duration: 2200 });
 
   useEffect(() => {
-    if (inView) {
+    if (metricsInView) {
       startSqft();
       startPartners();
       startClients();
     }
-  }, [inView]);
+  }, [metricsInView]);
 
   // Format helpers
   const formatCompact = (n) => {
@@ -156,6 +161,7 @@ export default function WhoWeAreSection({ storyImg = AboutBg }) {
         {/* Right column: cols 8-11 */}
         <motion.aside
           className="who__right"
+          ref={metricsRef}
           initial={{ y: 32, opacity: 0 }}
           animate={inView ? { y: 0, opacity: 1 } : {}}
           transition={{

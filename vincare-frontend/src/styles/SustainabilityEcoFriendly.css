@@ -284,14 +284,26 @@
 .sust__videoWrap,
 .sust__imageWrap {
   width: 100%;
+  display: block;
   overflow: hidden;
+  line-height: 0;
+  background: transparent;
+  isolation: isolate;
 }
 
-.sust__video {
+.sust__eco__video {
   width: 100%;
   height: auto;
   display: block;
+  margin-top: 10%;
   aspect-ratio: 16 / 9;
+  vertical-align: top;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  backface-visibility: hidden;
+  transform: translateZ(0) scale(1.01);
+  transform-origin: center center;
 }
 
 .sust__imageWrap {
@@ -301,12 +313,11 @@
 }
 
 .sust__eco__image {
-  width: 100%;
+  width: 90%;
   height: auto;
   display: block;
   margin-left: 5%;
-  margin-top: 15%;
-  aspect-ratio: 16 / 9;
+  margin-top: 10%;
   object-fit: cover;
   transition: transform 0.6s ease-in-out; /* smooth movement */
   animation: floatY 2s ease-in-out infinite; /* floating animation */

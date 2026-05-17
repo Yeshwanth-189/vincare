@@ -32,20 +32,6 @@ export default function Certifications({
     },
   };
 
-  const gridVariant = {
-    hidden: {},
-    visible: { transition: { staggerChildren: 0.15 } },
-  };
-
-  const cardVariant = {
-    hidden: { opacity: 0, y: -18 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.45, ease: "easeOut" },
-    },
-  };
-
   return (
     <section className="certs">
       <motion.h2
@@ -59,34 +45,51 @@ export default function Certifications({
       </motion.h2>
 
       <motion.div
-        className="certs__grid"
-        variants={gridVariant}
+        className="certs__carousel"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
       >
-        {items.map((it, idx) => (
-          <motion.figure
-            className="certs__card"
-            key={idx}
-            variants={cardVariant}
-          >
-            <motion.img
-              className="certs__img"
-              src={it.img}
-              alt={it.alt || it.name}
-              loading="lazy"
-              decoding="async"
-              sizes="(max-width: 900px) 100vw, 25vw"
-              whileHover={{
-                scale: [1, 1.15, 0.95, 1],
-                rotate: [0, -6, 3, 0],
-                transition: { duration: 0.6, ease: "easeInOut" },
-              }}
-            />
-            <figcaption className="certs__name">{it.name}</figcaption>
-          </motion.figure>
-        ))}
+        <div className="certs__marquee">
+          <div className="certs__track">
+            <div className="certs__group">
+              {items.map((it, idx) => (
+                <figure className="certs__card" key={`primary-${idx}`}>
+                  <motion.img
+                    className="certs__img"
+                    src={it.img}
+                    alt={it.alt || it.name}
+                    loading="lazy"
+                    decoding="async"
+                    sizes="(max-width: 900px) 60vw, 22vw"
+                    whileHover={{
+                      y: -4,
+                      scale: 1.03,
+                      transition: { duration: 0.24, ease: "easeOut" },
+                    }}
+                  />
+                  <figcaption className="certs__name">{it.name}</figcaption>
+                </figure>
+              ))}
+            </div>
+
+            <div className="certs__group" aria-hidden="true">
+              {items.map((it, idx) => (
+                <figure className="certs__card" key={`duplicate-${idx}`}>
+                  <img
+                    className="certs__img"
+                    src={it.img}
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                    sizes="(max-width: 900px) 60vw, 22vw"
+                  />
+                  <figcaption className="certs__name">{it.name}</figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+        </div>
       </motion.div>
     </section>
   );

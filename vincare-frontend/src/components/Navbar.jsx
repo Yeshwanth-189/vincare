@@ -1,11 +1,35 @@
 import React, { useState, useEffect } from "react";
 import { Link as ScrollLink } from "react-scroll";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 import "../styles/Navbar.css";
 import VincareLogo from "../assets/Vincare-Logo.png";
 import VincareWordLogo from "../assets/Vincare-Word-Logo.png";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
+
+  const renderNavLink = (label, sectionId, fallbackTo) => {
+    if (isHomePage) {
+      return (
+        <ScrollLink
+          to={sectionId}
+          smooth={true}
+          duration={700}
+          onClick={() => setIsOpen(false)}
+        >
+          {label}
+        </ScrollLink>
+      );
+    }
+
+    return (
+      <RouterLink to={fallbackTo} onClick={() => setIsOpen(false)}>
+        {label}
+      </RouterLink>
+    );
+  };
 
   useEffect(() => {
     const navbar = document.querySelector(".navbar");
@@ -76,46 +100,11 @@ function Navbar() {
 
           {/* Smooth Scrolling Links */}
           <div className={`navbar-links ${isOpen ? "open" : ""}`}>
-            <ScrollLink
-              to="home"
-              smooth={true}
-              duration={700}
-              onClick={() => setIsOpen(false)}
-            >
-              Home
-            </ScrollLink>
-            <ScrollLink
-              to="about"
-              smooth={true}
-              duration={700}
-              onClick={() => setIsOpen(false)}
-            >
-              About
-            </ScrollLink>
-            <ScrollLink
-              to="products-intro"
-              smooth={true}
-              duration={700}
-              onClick={() => setIsOpen(false)}
-            >
-              Products
-            </ScrollLink>
-            <ScrollLink
-              to="sustainability"
-              smooth={true}
-              duration={700}
-              onClick={() => setIsOpen(false)}
-            >
-              Sustainability
-            </ScrollLink>
-            <ScrollLink
-              to="contact"
-              smooth={true}
-              duration={700}
-              onClick={() => setIsOpen(false)}
-            >
-              Contact
-            </ScrollLink>
+            {renderNavLink("Home", "home", "/")}
+            {renderNavLink("About", "about", "/#about")}
+            {renderNavLink("Products", "products-intro", "/products")}
+            {renderNavLink("Sustainability", "sustainability", "/#sustainability")}
+            {renderNavLink("Contact", "contact", "/#contact")}
           </div>
         </div>
 

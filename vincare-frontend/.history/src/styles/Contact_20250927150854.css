@@ -1,0 +1,134 @@
+:root {
+  --brand-dark: #0a2540;
+  --brand-blue: #1976d2;
+  --text: #333;
+  --muted: #666;
+  --bg: #fff;
+}
+
+.container {
+  width: min(1100px, 92%);
+  margin-inline: auto;
+}
+
+.contact-section {
+  background: var(--bg);
+  color: var(--text);
+  padding: 64px 0 80px;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0; /* no gap between columns */
+}
+
+.contact-info,
+.contact-form-wrap {
+  padding: 32px;
+  background: #fff;
+  border: none; /* invisible border */
+  box-shadow: none; /* no shadow */
+}
+
+.contact-title {
+  display: flex;
+  align-items: center;
+  font-family: "Montserrat", serif;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin: 0 0 16px;
+}
+
+.contact-subtitle {
+  margin: -4px 0 20px;
+  color: var(--muted);
+}
+
+.info-block .org {
+  margin: 8px 0 12px;
+  font-weight: 600;
+  color: var(--color-secondary);
+}
+
+.info-block .label {
+  margin: 18px 0 6px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+address {
+  font-style: normal;
+  line-height: 1.6;
+}
+
+.email {
+  color: var(--brand-blue);
+  text-decoration: none;
+}
+.email:hover {
+  text-decoration: underline;
+}
+
+.contact-form .row {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.contact-form .row.two {
+  grid-template-columns: 1fr 1fr;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+  color: var(--brand-dark);
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font: inherit;
+  background: #fff;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.field input:focus,
+.field textarea:focus {
+  border-color: var(--brand-blue);
+  box-shadow: 0 0 0 4px rgba(25, 118, 210, 0.12);
+}
+
+.btn-primary {
+  display: inline-block;
+  border: none;
+  border-radius: 4px;
+  padding: 12px 22px;
+  font-weight: 600;
+  background: var(--color-primary);
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.06s ease, opacity 0.2s ease;
+}
+.btn-primary:hover {
+  background: white;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+}
+.btn-primary:active {
+  transform: translateY(1px);
+}
+
+@media (max-width: 900px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+  .contact-form .row.two {
+    grid-template-columns: 1fr;
+  }
+}

@@ -2,6 +2,7 @@ import React from "react";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import "../styles/WhyVincare.css";
+import whyVincareBG from "../assets/whyVincarebg.png";
 
 import why1 from "../assets/why1.png";
 import why2 from "../assets/why2.png";
@@ -44,7 +45,10 @@ const items = [
 
 export default function WhyVincare() {
   return (
-    <section className="why grid-12">
+    <section
+      className="why grid-12"
+      style={{ backgroundImage: `url(${whyVincareBG})` }}
+    >
       <motion.h2
         className="why__title"
         initial={{ y: 24, opacity: 0 }}

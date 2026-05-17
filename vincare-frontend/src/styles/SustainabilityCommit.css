@@ -284,7 +284,11 @@
 .sust__videoWrap,
 .sust__imageWrap {
   width: 100%;
+  display: block;
   overflow: hidden;
+  line-height: 0;
+  background: transparent;
+  isolation: isolate;
 }
 
 .sust__com__video {
@@ -293,6 +297,13 @@
   display: block;
   margin-top: 15%;
   aspect-ratio: 16 / 9;
+  vertical-align: top;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  backface-visibility: hidden;
+  transform: translateZ(0) scale(1.01);
+  transform-origin: center center;
 }
 
 .sust__imageWrap {
@@ -306,6 +317,7 @@
   height: auto;
   display: block;
   margin-left: 5%;
+  margin-top: 2%;
   margin-bottom: 0%;
   aspect-ratio: 16 / 9;
   object-fit: cover;

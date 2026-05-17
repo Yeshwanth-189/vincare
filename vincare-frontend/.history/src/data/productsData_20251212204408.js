@@ -1,0 +1,32 @@
+import Germicheck from "../assets/products/germi-check.png";
+import MultiClean from "../assets/products/Multi_clean.png";
+import DeepClean from "../assets/products/Deep_clean.png";
+// ...rest imports
+
+export const PRODUCTS = [
+  {
+    id: "V1",
+    name: "V1 Germi Check",
+    description: "Disinfectants & Surface Cleaners",
+    category: "Disinfectants & Surface Cleaners",
+    image: Germicheck,
+    glb: "../assets/products/germi-check.glb",
+  },
+  {
+    id: "V2",
+    name: "V2 Multi Clean – Multi Purpose Cleaner",
+    description: "Disinfectants & Surface Cleaners",
+    category: "Disinfectants & Surface Cleaners",
+    image: MultiClean,
+    glb: "../assets/products/germi-check.glb",
+  },
+  {
+    id: "V7",
+    name: "V7 Deep Clean",
+    description: "House Keeping Chemical",
+    category: "Disinfectants & Surface Cleaners",
+    image: DeepClean,
+    glb: "../assets/products/germi-check.glb",
+  },
+  // ...
+];

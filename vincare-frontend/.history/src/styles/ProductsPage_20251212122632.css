@@ -1,0 +1,296 @@
+/* ../styles/ProductView.css */
+
+.productView {
+  padding: 64px 0;
+}
+
+.productView__container {
+  width: min(1240px, 92%);
+  margin: 0 auto;
+}
+
+/* 12 column grid */
+.productView__grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 26px;
+  align-items: start;
+}
+
+/* LEFT: col 2–5 (or change to 1/5 if you removed gutters) */
+.productView__filters {
+  grid-column: 2 / 6;
+  border-radius: 18px;
+  padding: 18px;
+
+  /* glossy */
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.10) 0%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 18px 44px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+}
+
+/* RIGHT: col 6–11 */
+.productView__results {
+  grid-column: 6 / 12;
+}
+
+.productView__heading {
+  margin: 0 0 14px;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+/* Search */
+.productView__label {
+  display: block;
+  font-size: 12.5px;
+  opacity: 0.9;
+  margin: 0 0 8px;
+}
+
+.productView__searchWrap {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.productView__search {
+  width: 100%;
+  padding: 12px 42px 12px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+
+  /* glossy input */
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.10),
+    rgba(0, 0, 0, 0.22)
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.10),
+    0 10px 22px rgba(0, 0, 0, 0.18);
+  color: #fff;
+
+  outline: none;
+  transition: border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+}
+
+.productView__search:focus {
+  border-color: rgba(255, 255, 255, 0.38);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 12px 28px rgba(0, 0, 0, 0.24),
+    0 0 0 4px rgba(255, 255, 255, 0.10);
+}
+
+.productView__clear {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 0;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.92);
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 10px;
+  padding: 6px 8px;
+  transition: transform 140ms ease, background 140ms ease;
+}
+
+.productView__clear:hover {
+  transform: translateY(-50%) scale(1.04);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Categories header */
+.productView__catHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 16px 0 10px;
+}
+
+.productView__subheading {
+  margin: 0;
+  font-size: 13px;
+  letter-spacing: 0.25px;
+  opacity: 0.95;
+}
+
+.productView__reset {
+  border: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.88);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Categories line-by-line */
+.productView__cats {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.productView__chip {
+  width: 100%;
+  text-align: left;
+
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+
+  /* glossy chip */
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.08),
+    rgba(0, 0, 0, 0.22)
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.10),
+    0 10px 20px rgba(0, 0, 0, 0.14);
+
+  color: rgba(255, 255, 255, 0.94);
+  cursor: pointer;
+
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background 160ms ease;
+}
+
+.productView__chip:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.28);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 16px 30px rgba(0, 0, 0, 0.20);
+}
+
+.productView__chip.is-active {
+  border-color: rgba(255, 255, 255, 0.55);
+  box-shadow:
+    0 0 0 4px rgba(255, 255, 255, 0.10),
+    0 16px 34px rgba(0, 0, 0, 0.22);
+}
+
+/* Results */
+.productView__resultsTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.productView__count {
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* 3 products per row */
+.productView__cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+/* Card */
+.productCard {
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  /* glossy card */
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0.03)
+  );
+  box-shadow:
+    0 18px 44px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(8px);
+
+  transform: translateY(0);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.productCard:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow:
+    0 26px 62px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.productCard__imgWrap {
+  aspect-ratio: 16 / 10;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.productCard__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1);
+  transition: transform 260ms ease;
+}
+
+.productCard:hover .productCard__img {
+  transform: scale(1.04);
+}
+
+.productCard__body {
+  padding: 14px 14px 16px;
+}
+
+.productCard__title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 800; /* bold */
+  line-height: 1.25;
+}
+
+.productCard__desc {
+  margin: 10px 0 12px;
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+/* Category centered line */
+.productCard__category {
+  text-align: center;
+  font-size: 12px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.20);
+  opacity: 0.95;
+  margin-bottom: 14px;
+}
+
+/* Button area */
+.productCard__actions {
+  display: flex;
+  justify-content: center;
+}
+
+/* Add a subtle button hover (works with your existing .btn styles too) */
+.btn {
+  transition: transform 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box

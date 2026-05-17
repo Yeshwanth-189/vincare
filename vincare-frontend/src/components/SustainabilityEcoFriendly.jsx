@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import "../styles/SustainabilityEcoFriendly.css";
 import greenglobegreenbg from "../assets/gbg.mp4";
 import sust1 from "../assets/sust1.png";
-import eartheco from "../assets/earth-eco.png";
+import eartheco from "../assets/earth-eco-2.png";
 import ecoprod from "../assets/eco-prod.png";
 // import protect from "../assets/protect.png";
 
@@ -106,7 +106,7 @@ export default function SustainabilityEcoFriendly({
             <div className="sust__right">
               <div className="sust__videoWrap">
                 <video
-                  className="sust__video"
+                  className="sust__eco__video"
                   src={videoSrc}
                   poster={poster}
                   autoPlay

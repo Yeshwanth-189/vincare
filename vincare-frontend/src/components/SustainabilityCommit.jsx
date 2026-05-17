@@ -102,7 +102,7 @@ export default function SustainabilityCommit({
 
             {/* RIGHT: video (first row) + image (second row) */}
             <div className="sust__right">
-              <div className="sust__safe__videoWrap">
+              <div className="sust__videoWrap">
                 <video
                   className="sust__com__video"
                   src={videoSrc}
