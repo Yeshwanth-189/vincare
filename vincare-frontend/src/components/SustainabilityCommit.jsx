@@ -4,6 +4,7 @@ import blueglobebluebg from "../assets/blue-globe-blue-bg.mp4";
 import sustcommit from "../assets/sust_commit.png";
 
 import protect from "../assets/protect.png";
+import useNearViewport from "../hooks/useNearViewport";
 
 /**
  * Props (all optional; sensible fallbacks included):
@@ -20,6 +21,7 @@ export default function SustainabilityCommit({
   poster = sustcommit,
   imageSrc = protect,
 }) {
+  const [sectionRef, shouldLoadMedia] = useNearViewport();
   const headingRef = useRef(null);
 
   useEffect(() => {
@@ -43,7 +45,7 @@ export default function SustainabilityCommit({
   }, []);
 
   return (
-    <section className="sustainability">
+    <section className="sustainability" ref={sectionRef}>
       {/* 12-col grid container */}
       <div className="sust__com__grid">
         {/* Left gutter (col 1) is intentionally empty */}
@@ -105,12 +107,13 @@ export default function SustainabilityCommit({
               <div className="sust__videoWrap">
                 <video
                   className="sust__com__video"
-                  src={videoSrc}
+                  src={shouldLoadMedia ? videoSrc : undefined}
                   poster={poster}
-                  autoPlay
+                  autoPlay={shouldLoadMedia}
                   muted
                   loop
                   playsInline
+                  preload="none"
                 />
               </div>
               <div className="sust__imageWrap">
@@ -118,6 +121,8 @@ export default function SustainabilityCommit({
                   className="sust__com__image"
                   src={imageSrc}
                   alt="Sustainability visual"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
             </div>

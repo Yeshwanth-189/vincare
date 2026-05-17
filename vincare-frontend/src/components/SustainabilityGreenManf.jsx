@@ -3,6 +3,7 @@ import "../styles/SustainabilityGreenManf.css";
 import greenglobewhitebg from "../assets/green-globe-white-bg.mp4";
 import sust1 from "../assets/sust1.png";
 import green from "../assets/green-manf.png";
+import useNearViewport from "../hooks/useNearViewport";
 
 // import protect from "../assets/protect.png";
 
@@ -21,6 +22,7 @@ export default function SustainabilityGreenManf({
   poster = sust1,
   imageSrc = sust1,
 }) {
+  const [sectionRef, shouldLoadMedia] = useNearViewport();
   const headingRef = useRef(null);
 
   useEffect(() => {
@@ -44,7 +46,7 @@ export default function SustainabilityGreenManf({
   }, []);
 
   return (
-    <section className="sustainability">
+    <section className="sustainability" ref={sectionRef}>
       {/* 12-col grid container */}
       <div className="sust__grid">
         {/* Left gutter (col 1) is intentionally empty */}
@@ -101,12 +103,13 @@ export default function SustainabilityGreenManf({
               <div className="sust__videoWrap">
                 <video
                   className="sust__video"
-                  src={videoSrc}
+                  src={shouldLoadMedia ? videoSrc : undefined}
                   poster={poster}
-                  autoPlay
+                  autoPlay={shouldLoadMedia}
                   muted
                   loop
                   playsInline
+                  preload="none"
                 />
               </div>
               <div className="sust__imageWrap">
@@ -114,6 +117,8 @@ export default function SustainabilityGreenManf({
                   className="sust__image"
                   src={imageSrc}
                   alt="Sustainability visual"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
             </div>

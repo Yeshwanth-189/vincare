@@ -107,6 +107,8 @@ that raise standards of safety, compliance, and efficiency—helping organizatio
                     className="sector__img"
                     src={it.img}
                     alt={it.alt || it.label}
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 <figcaption className="sector__caption">{it.label}</figcaption>

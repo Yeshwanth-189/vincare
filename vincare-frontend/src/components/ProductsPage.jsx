@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/ProductsPage.css";
 import whyVincareBG from "../assets/whyVincarebg.png";
@@ -23,6 +23,7 @@ export default function ProductsPage() {
   const [query, setQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
   const [page, setPage] = useState(1);
+  const resultsRef = useRef(null);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -78,6 +79,10 @@ export default function ProductsPage() {
     }
 
     setPage(nextPage);
+    resultsRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
   };
 
   return (
@@ -163,7 +168,11 @@ export default function ProductsPage() {
               </div>
             </aside>
 
-            <main className="productView__results" aria-label="Product results">
+            <main
+              ref={resultsRef}
+              className="productView__results"
+              aria-label="Product results"
+            >
               <div className="productView__resultsTop">
                 <div className="productView__summaryCard">
                   <p className="productView__eyebrow">Filtered catalog</p>

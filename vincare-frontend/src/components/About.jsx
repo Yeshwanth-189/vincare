@@ -22,6 +22,7 @@ import {
 import { MdCheckCircleOutline } from "react-icons/md";
 import BandBg from "../assets/hands.png";
 import WhyVincare from "../components/WhyVincare.jsx";
+import useNearViewport from "../hooks/useNearViewport";
 
 /**
  * WhoWeAreSection
@@ -34,6 +35,7 @@ import WhyVincare from "../components/WhyVincare.jsx";
  * - visionImg: string (image URL for the Vision block)
  */
 export default function WhoWeAreSection({ storyImg = AboutBg }) {
+  const [bandRef, shouldLoadBandBg] = useNearViewport();
   const rootRef = useRef(null);
   const inView = useInView(rootRef, { once: true, margin: "-80px" });
   const metricsRef = useRef(null);
@@ -197,8 +199,9 @@ export default function WhoWeAreSection({ storyImg = AboutBg }) {
         </motion.aside>
       </section>
       <motion.section
+        ref={bandRef}
         className="who__band grid-12"
-        style={{ "--band-bg": `url(${BandBg})` }}
+        style={{ "--band-bg": shouldLoadBandBg ? `url(${BandBg})` : "none" }}
         initial={{ y: 24, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         viewport={{ once: true, amount: 0.2 }}

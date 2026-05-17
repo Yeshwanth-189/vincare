@@ -3,6 +3,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import "../styles/WhyVincare.css";
 import whyVincareBG from "../assets/whyVincarebg.png";
+import useNearViewport from "../hooks/useNearViewport";
 
 import why1 from "../assets/why1.png";
 import why2 from "../assets/why2.png";
@@ -44,10 +45,13 @@ const items = [
 ];
 
 export default function WhyVincare() {
+  const [sectionRef, shouldLoadBg] = useNearViewport();
+
   return (
     <section
+      ref={sectionRef}
       className="why grid-12"
-      style={{ backgroundImage: `url(${whyVincareBG})` }}
+      style={{ backgroundImage: shouldLoadBg ? `url(${whyVincareBG})` : "none" }}
     >
       <motion.h2
         className="why__title"
@@ -89,7 +93,7 @@ export default function WhyVincare() {
 
             {/* Image (ALWAYS right on desktop) */}
             <div className="why__imgCol right">
-              <img src={it.img} alt={it.title} loading="lazy" />
+              <img src={it.img} alt={it.title} loading="lazy" decoding="async" />
             </div>
           </motion.div>
         ))}

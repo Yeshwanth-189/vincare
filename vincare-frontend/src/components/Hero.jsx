@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import { Link as RouterLink } from "react-router-dom";
@@ -58,6 +58,18 @@ export default function Hero({
     hidden: { opacity: 0 },
     show: { opacity: 1, transition: { duration: 0.35 } },
   };
+
+  useEffect(() => {
+    const preloadLink = document.createElement("link");
+    preloadLink.rel = "preload";
+    preloadLink.as = "image";
+    preloadLink.href = bgImage;
+    document.head.appendChild(preloadLink);
+
+    return () => {
+      document.head.removeChild(preloadLink);
+    };
+  }, [bgImage]);
 
   const renderCta = (cta, className, Icon) => {
     if (cta?.to) {
@@ -136,6 +148,8 @@ export default function Hero({
             src={sideImage}
             alt="Illustration"
             className="hero__visual-img"
+            fetchPriority="high"
+            decoding="async"
             initial={{ rotateY: 0 }}
             animate={{ rotateY: 1080 }}
             transition={{ duration: 1.2, ease: "easeOut" }}

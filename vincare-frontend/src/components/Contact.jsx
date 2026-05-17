@@ -14,6 +14,7 @@ import {
   FiUser,
   FiUserPlus,
 } from "react-icons/fi";
+import useNearViewport from "../hooks/useNearViewport";
 
 const EMPTY_FORM = {
   firstName: "",
@@ -35,6 +36,7 @@ const CONTACT_FORM_ACTION = `https://formsubmit.co/${encodeURIComponent(
 const CONTACT_FORM_TARGET = "contact-form-submit-frame";
 
 export default function Contact() {
+  const [sectionRef, shouldLoadBg] = useNearViewport();
   const [form, setForm] = useState(EMPTY_FORM);
   const [submitState, setSubmitState] = useState({
     status: "idle",
@@ -89,8 +91,9 @@ export default function Contact() {
 
   return (
     <section
+      ref={sectionRef}
       className="contact-section contact--with-bg"
-      style={{ backgroundImage: `url(${backgroundImage})` }}
+      style={{ backgroundImage: shouldLoadBg ? `url(${backgroundImage})` : "none" }}
       id="contact"
     >
       <motion.h2

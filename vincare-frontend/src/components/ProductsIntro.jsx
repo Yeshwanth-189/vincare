@@ -4,6 +4,7 @@ import "../styles/ProductsIntro.css";
 import { motion, useReducedMotion } from "framer-motion";
 //import ProductsbgImage from "../assets/product-intro-bg.png";
 import ProductsbgImage from "../assets/ProductsIntro.png";
+import useNearViewport from "../hooks/useNearViewport";
 
 /**
  * Props:
@@ -14,6 +15,7 @@ export default function ProductsIntro({
   bgImage = ProductsbgImage,
   href = "/products",
 }) {
+  const [sectionRef, shouldLoadBg] = useNearViewport();
   const reduce = useReducedMotion();
   const container = {
     hidden: { opacity: 0, y: 20 },
@@ -55,8 +57,9 @@ export default function ProductsIntro({
       };
   return (
     <section
+      ref={sectionRef}
       className="productsIntro"
-      style={{ "--bg-image": `url(${bgImage})` }}
+      style={{ "--bg-image": shouldLoadBg ? `url(${bgImage})` : "none" }}
       aria-label="Our Products Introduction"
     >
       <motion.div

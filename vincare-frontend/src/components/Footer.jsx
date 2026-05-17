@@ -21,7 +21,13 @@ const Footer = () => {
         {/* LEFT — Logo + Social */}
         <div className="footer-section left-col">
           <div className="brand">
-            <img src={logo} alt="Vincare logo" className="brand__logo" />
+            <img
+              src={logo}
+              alt="Vincare logo"
+              className="brand__logo"
+              loading="lazy"
+              decoding="async"
+            />
             <h3 className="vincare__brand__name">Vincare Hygiene</h3>
           </div>
 

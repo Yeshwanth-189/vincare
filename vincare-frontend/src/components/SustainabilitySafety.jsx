@@ -3,6 +3,7 @@ import "../styles/SustainabilitySafety.css";
 import VincareLogo from "../assets/vincare-logo.png";
 import VincareHover from "../assets/vincare-hover.mp4";
 import sussafety from "../assets/sus-safety.png";
+import useNearViewport from "../hooks/useNearViewport";
 
 // import leaf from "../assets/leaf.png";
 // import protect from "../assets/protect.png";
@@ -22,6 +23,7 @@ export default function SustainabilitySafety({
   poster = sussafety,
   imageSrc = VincareLogo,
 }) {
+  const [sectionRef, shouldLoadMedia] = useNearViewport();
   const headingRef = useRef(null);
 
   useEffect(() => {
@@ -45,7 +47,7 @@ export default function SustainabilitySafety({
   }, []);
 
   return (
-    <section className="sustainability">
+    <section className="sustainability" ref={sectionRef}>
       {/* 12-col grid container */}
       <div className="sust__safe__grid">
         {/* Left gutter (col 1) is intentionally empty */}
@@ -110,12 +112,13 @@ export default function SustainabilitySafety({
               <div className="sust__videoWrap">
                 <video
                   className="sust__safe__video"
-                  src={videoSrc}
+                  src={shouldLoadMedia ? videoSrc : undefined}
                   poster={poster}
-                  autoPlay
+                  autoPlay={shouldLoadMedia}
                   muted
                   loop
                   playsInline
+                  preload="none"
                 />
               </div>
               <div className="sust__imageWrap">
@@ -123,6 +126,8 @@ export default function SustainabilitySafety({
                   className="sust__safe__image"
                   src={imageSrc}
                   alt="Sustainability visual"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
             </div>

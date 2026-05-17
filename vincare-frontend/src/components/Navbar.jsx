@@ -90,6 +90,8 @@ function Navbar() {
               alt="logo"
               className="navbar-word-logo-image"
               src={VincareWordLogo}
+              fetchPriority="high"
+              decoding="async"
             />
             <div className="hamburger" onClick={() => setIsOpen(!isOpen)}>
               <span className={isOpen ? "bar rotate-top" : "bar"}></span>
